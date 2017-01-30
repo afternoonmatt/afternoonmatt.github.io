@@ -48,3 +48,6 @@ li {
 table, th, td {
     border: 0;
 }
+table1, th1, td1 {
+    border: 1;
+}
