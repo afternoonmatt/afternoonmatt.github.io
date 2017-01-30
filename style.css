@@ -45,7 +45,10 @@ li {
  	height: 100px;
  }
 
-table, th, td {
-    border: 1px solid black;
+table.style1{border: 0;
+}
+
+table.style2{    border: 1px solid black;
     border-collapse: collapse;
 }
+
