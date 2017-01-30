@@ -37,10 +37,14 @@ li {
 }
 
 #button {
- -	margin-left: 40%;
- -	margin-right: 40%;
- -	background-color: #b3ecff;
- -
- -	border-radius: 15px;
- -	height: 100px;
- -}
+ 	margin-left: 40%;
+ 	margin-right: 40%;
+ 	background-color: #b3ecff;
+ 
+ 	border-radius: 15px;
+ 	height: 100px;
+ }
+
+table, th, td {
+    border: 0;
+}
