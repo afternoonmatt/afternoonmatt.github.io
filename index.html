@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Barcode Scanner</title>
+  <style>
+    :root {
+      --bg: #0b1020;
       --panel: #151b2f;
       --text: #eef2ff;
       --muted: #a7b0d6;
@@ -14,6 +17,7 @@
     }
 
     * { box-sizing: border-box; }
+
     body {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
@@ -177,7 +181,6 @@
     const startBtn = document.getElementById('startBtn');
     const stopBtn = document.getElementById('stopBtn');
     const statusText = document.getElementById('statusText');
-    const statusBox = document.getElementById('statusBox');
     const resultText = document.getElementById('resultText');
     const resultMeta = document.getElementById('resultMeta');
 
@@ -220,7 +223,6 @@
             setStatus('Scan successful.', 'ok');
           },
           () => {
-            // Ignore per-frame decode errors to keep UI clean.
           }
         );
 
