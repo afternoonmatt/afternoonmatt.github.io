@@ -1,4 +1,4 @@
-class SearchForm extends HTMLElement{constructor(){super(),this.input=this.querySelector('input[type="search"]'),this.resetButton=this.querySelector('button[type="reset"]'),this.input&&(this.input.form.addEventListener("reset",this.onFormReset.bind(this)),this.input.addEventListener("input",debounce(event=>{this.onChange(event)},300).bind(this)))}toggleResetButton(){const resetIsHidden=this.resetButton.classList.contains("hidden");this.input.value.length>0&&resetIsHidden?this.resetButton.classList.remove("hidden"):this.input.value.length===0&&!resetIsHidden&&this.resetButton.classList.add("hidden")}onChange(){this.toggleResetButton()}shouldResetForm(){return!document.querySelector('[aria-selected="true"] a')}onFormReset(event){event.preventDefault(),this.shouldResetForm()&&(this.input.value="",this.input.focus(),this.toggleResetButton())}}customElements.define("search-form",SearchForm);
+class SearchForm extends HTMLElement{constructor(){super(),this.input=this.querySelector('input[type="search"]'),this.resetButton=this.querySelector('button[type="reset"]'),this.input&&(this.input.form.addEventListener("reset",this.onFormReset.bind(this)),this.input.addEventListener("input",debounce(event=>{this.onChange(event)},300).bind(this)))}toggleResetButton(){if(!this.resetButton)return;const resetIsHidden=this.resetButton.classList.contains("hidden");this.input.value.length>0&&resetIsHidden?this.resetButton.classList.remove("hidden"):this.input.value.length===0&&!resetIsHidden&&this.resetButton.classList.add("hidden")}onChange(){this.toggleResetButton()}shouldResetForm(){return!document.querySelector('[aria-selected="true"] a')}onFormReset(event){event.preventDefault(),this.shouldResetForm()&&(this.input.value="",this.input.focus(),this.toggleResetButton())}}customElements.define("search-form",SearchForm);
 
 (function(){
   var SCRIPT_ID = 'lulo-zxing-library';
@@ -10,6 +10,7 @@ class SearchForm extends HTMLElement{constructor(){super(),this.input=this.query
       if (window.ZXing) return resolve();
       var existing = document.getElementById(SCRIPT_ID) || document.querySelector('script[src*="@zxing/library"]');
       if (existing) {
+        if (window.ZXing) return resolve();
         existing.addEventListener('load', function(){ resolve(); }, { once: true });
         existing.addEventListener('error', reject, { once: true });
         setTimeout(function(){ window.ZXing ? resolve() : reject(new Error('ZXing did not load.')); }, 5000);
@@ -28,7 +29,7 @@ class SearchForm extends HTMLElement{constructor(){super(),this.input=this.query
     if (document.getElementById('lulo-barcode-scanner-styles')) return;
     var style = document.createElement('style');
     style.id = 'lulo-barcode-scanner-styles';
-    style.textContent = '\n.search__input.field__input, .search-modal__form input[type="search"], form[action*="/search"] input[type="search"]{padding-right:5.25rem!important;}\n.lulo-search-scan-wrapper{position:relative;}\n.lulo-barcode-scan-button{position:absolute;right:3.6rem;top:50%;transform:translateY(-50%);z-index:5;width:3.2rem;height:3.2rem;border:0;background:transparent;color:rgb(var(--color-foreground,18,18,18));cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;border-radius:999px;}\n.lulo-barcode-scan-button:hover,.lulo-barcode-scan-button:focus{background:rgba(18,18,18,.08);outline:none;}\n.lulo-barcode-scan-button svg{width:2rem;height:2rem;pointer-events:none;}\n#lulo-barcode-scanner-modal[hidden]{display:none!important;}\n#lulo-barcode-scanner-modal{position:fixed;inset:0;z-index:999999;background:rgba(0,0,0,.78);display:flex;align-items:center;justify-content:center;padding:1.5rem;}\n.lulo-barcode-scanner-panel{width:min(92vw,460px);background:#fff;color:#121212;border-radius:18px;padding:1rem;box-shadow:0 20px 60px rgba(0,0,0,.35);text-align:center;}\n.lulo-barcode-scanner-panel h2{margin:.5rem 0 .25rem;font-size:1.4rem;}\n.lulo-barcode-scanner-panel p{margin:.25rem 0 1rem;font-size:1rem;}\n#lulo-barcode-video{width:100%;max-height:62vh;background:#111;border-radius:12px;object-fit:cover;}\n.lulo-barcode-close{margin-top:1rem;width:100%;min-height:44px;border:0;border-radius:999px;background:#ec5b66;color:#fff;font-weight:700;cursor:pointer;}\n';
+    style.textContent = '\nform[action*="/search"] .field, search-form .field, form[action*="/search"]{position:relative!important;}\n.search__input.field__input, .search-modal__form input[type="search"], form[action*="/search"] input[type="search"]{padding-right:8.8rem!important;}\n.lulo-barcode-scan-button{position:absolute!important;right:5.25rem!important;top:50%!important;transform:translateY(-50%)!important;z-index:2147483000!important;width:3.8rem!important;height:3.8rem!important;min-width:3.8rem!important;min-height:3.8rem!important;border:0!important;background:#ffffff!important;color:#53665f!important;cursor:pointer!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:0!important;border-radius:999px!important;box-shadow:0 0 0 1px rgba(83,102,95,.22)!important;line-height:1!important;opacity:1!important;visibility:visible!important;}\n.lulo-barcode-scan-button:hover,.lulo-barcode-scan-button:focus{background:#f3f7f5!important;outline:2px solid rgba(83,102,95,.2)!important;}\n.lulo-barcode-scan-button svg{width:2.1rem!important;height:2.1rem!important;display:block!important;pointer-events:none!important;}\n#lulo-barcode-scanner-modal[hidden]{display:none!important;}\n#lulo-barcode-scanner-modal{position:fixed;inset:0;z-index:999999;background:rgba(0,0,0,.78);display:flex;align-items:center;justify-content:center;padding:1.5rem;}\n.lulo-barcode-scanner-panel{width:min(92vw,460px);background:#fff;color:#121212;border-radius:18px;padding:1rem;box-shadow:0 20px 60px rgba(0,0,0,.35);text-align:center;}\n.lulo-barcode-scanner-panel h2{margin:.5rem 0 .25rem;font-size:1.4rem;}\n.lulo-barcode-scanner-panel p{margin:.25rem 0 1rem;font-size:1rem;}\n#lulo-barcode-video{width:100%;max-height:62vh;background:#111;border-radius:12px;object-fit:cover;}\n.lulo-barcode-close{margin-top:1rem;width:100%;min-height:44px;border:0;border-radius:999px;background:#ec5b66;color:#fff;font-weight:700;cursor:pointer;}\n';
     document.head.appendChild(style);
   }
 
@@ -102,14 +103,17 @@ class SearchForm extends HTMLElement{constructor(){super(),this.input=this.query
     });
   }
 
+  function chooseAnchor(input){
+    return input.closest('.field') || input.closest('form') || input.parentElement;
+  }
+
   function enhanceSearchBars(){
     addStyles();
     findSearchInputs().forEach(function(input){
-      if (input.dataset.luloBarcodeEnhanced === 'true') return;
+      var anchor = chooseAnchor(input);
+      if (!anchor || anchor.querySelector('.' + BUTTON_CLASS)) return;
       input.dataset.luloBarcodeEnhanced = 'true';
-      var parent = input.parentElement;
-      if (!parent) return;
-      if (getComputedStyle(parent).position === 'static') parent.classList.add('lulo-search-scan-wrapper');
+      anchor.style.position = 'relative';
       var button = document.createElement('button');
       button.type = 'button';
       button.className = BUTTON_CLASS;
@@ -121,12 +125,14 @@ class SearchForm extends HTMLElement{constructor(){super(),this.input=this.query
         event.stopPropagation();
         startScanner(input);
       });
-      parent.appendChild(button);
+      anchor.appendChild(button);
     });
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', enhanceSearchBars);
   else enhanceSearchBars();
+  window.addEventListener('load', enhanceSearchBars);
+  document.addEventListener('click', function(){ setTimeout(enhanceSearchBars, 100); }, true);
 
   var observer = new MutationObserver(function(){ enhanceSearchBars(); });
   observer.observe(document.documentElement, { childList: true, subtree: true });
