@@ -1,133 +1,189 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    	<title>My Prime Academy HTML Resume Challenge</title>
-	<link rel="stylesheet" href="style.css">
-  </head>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Barcode Scanner</titl([developer.mozilla.org](https://developer.mozilla.org/en-US/docs/Web/Security/Defenses/Secure_Contexts/features_restricted_to_secure_contexts?utm_source=chatgpt.com))#0b1020;
+      --panel: #151b2f;
+      --text: #eef2ff;
+      --muted: #a7b0d6;
+      --accent: #6ea8fe;
+      --good: #57d38c;
+      --bad: #ff7b7b;
+      --border: #2a3354;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, #09101d 0%, #11172a 100%);
+      color: var(--text);
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+
+    .app {
+      width: min(760px, 100%);
+      background: rgba(21, 27, 47, 0.95);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+      overflow: hidden;
+    }
+
+    .header {
+      padding: 22px 22px 10px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 1.7rem;
+    }
+
+    p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .content {
+      padding: 22px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      background: var(--accent);
+      color: #07101f;
+      font-weight: 700;
+    }
+
+    button.secondary {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    button:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    .reader-shell {
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: #000;
+      min-height: 320px;
+    }
+
+    #reader {
+      width: 100%;
+    }
+
+    .status, .result {
+      background: rgba(9, 14, 27, 0.9);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+    }
+
+    .status strong, .result strong {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .ok { color: var(--good); }
+    .error { color: var(--bad); }
+
+    .result-value {
+      font-size: 1.1rem;
+      word-break: break-word;
+    }
+
+    .meta {
+      font-size: 0.92rem;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 14px 22px 22px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    code {
+      background: rgba(255,255,255,0.06);
+      padding: 2px 6px;
+      border-radius: 6px;
+    }
+  </style>
+</head>
 <body>
-<div id="container">
-		<div id="contact">
-			<h1>Matthew Retka</h1>
-			<h2>12700 Annapolis Ln N.</h2>
-			<h2>Dayton, MN 55327</h2>
-			<h2>312-730-3968</h2>
-		</div>
+  <div class="app">
+    <div class="header">
+      <h1>Barcode Scanner</h1>
+      <p>Use your device camera to scan common barcodes and QR codes directly in the browser.</p>
+    </div>
 
-		<div id="academics"> 
-			<h3>Academic Experience</h3>
-			<br>
-			<li>High School Weighted GPA of 3.42 </li>
-			<li>Graduated with honors</li>
-		</div>
-	
-		<div id="school">
-			<h3>School</h3>
-			<br>
-			<table class="style1">
-			<tr>
-			<td>Champlin Park High School</td>
-			<td>2010 - 2014 </td>
-			</tr>
-			<tr>
-			<td>University of St. Thomas</td>
-			<td>2014 - 2015</td>
-			</tr>
-			<tr>
-			<td>St. Cloud State University</td>
-			<td>2016 </td>
-			</tr>
-			</table>
-		</div>
+    <div class="content">
+      <div class="controls">
+        <button id="startBtn">Start Scanner</button>
+        <button id="stopBtn" class="secondary" disabled>Stop Scanner</button>
+      </div>
 
-		<div id="Activities" >
-			<h3>Activities </h3>
-			<br>
-			<table class="style1">
-			<tr>
-			<th colspan="2">High School</th>
-			</tr>
-			<tr>
-			<td> Swim Team</td>
-			<td>2011 </td>
-			</tr>
-			<tr>
-			<td> Tech Crew for school productions</td>
-			<td>2013 - 2014</td>
-			</tr>
-			<tr>
-			<td>DECA</td>
-			<td>2014 </td>
-			</tr>
-			<tr>
-			<th colspan="2">College</th>
-			</tr>
-			<tr>
-			<td>Computer Science Club </td>
-			<td>2014 </td>
-			</tr>
-			<tr>
-			<td>STAR Committee  </td>
-			<td>2014 </td>
-			</tr>
-			</table>
-		</div>	
+      <div class="reader-shell">
+        <div id="reader"></div>
+      </div>
 
-		<div id="Skills">
-			<h3>Skills</h3>
-			<br>
-			<li> Knowledge of HTML, CSS, Python, C++, javascript.</li>
-			<li>Score of 27 on ACT </li>
-			<li>Familiar with PC and Mac operating systems</li>
-		</div>
-		
-		<div id="Volunteer Work">
-			<h3>Volunteer Work</h3>
-			<br>
-			<table class="style1">
-			<tr>
-			<td>Feed my Starving Children</td>
-			<td>2010</td>
-			</tr>
-			<tr>
-			<td>Church</td>
-			<td>2011</td>
-			</tr>
-			</table>
-		</div>
-	
-		<div id="Employment">
-			<h3>Employment</h3>
-			<br>
-			<table class="style2">
-			<tr>
-			<td>Order Processing Specialist</td>
-			<td>Custom Education Solutions, 11480 Marketplace Dr N Champlin MN 55316</td>
-			<td>2010-2014
-2016-17</td>
-			</tr>
-			<tr>
-			<td colspan="3">Kit orders, pick pack and ship materials, operate computer systems and use scanner, use warehouse equipment as needed</td>
-			</tr>
-			<tr>
-			<td>Lowes Hardware/Tools sales associat</td>
-			<td>11201 Fountains Dr, Maple Grove, MN 55369</td>
-			<td>2015</td>
-			</tr>
-			<tr>
-			<td colspan="3">Restock shelfs, maintain a clean area, assist customers and deal with customer concerns</td>
-			</tr>
-			<tr>
-			<td>Pizza Cook</td>
-			<td>University of St. Thomas, 2115 Summit Ave, St Paul, MN 55105</td>
-			<td>2015</td>
-			</tr>
-			<tr>
-			<td colspan="3">Prepare, cook pizza in stone pizza oven </td>
-			</tr>
-			</table>
-		</div>
-		
-	
-</div>
-</body>
-</html>
+      <div class="status" id="statusBox">
+        <strong>Status</strong>
+        <div id="statusText">Ready. Tap <em>Start Scanner</em> to request camera access.</div>
+      </div>
+
+      <div class="result">
+        <strong>Last Scan</strong>
+        <div id="resultText" class="result-value">Nothing scanned yet.</div>
+        <div id="resultMeta" class="meta"></div>
+      </div>
+    </div>
+
+    <div class="footer">
+      Host this file on GitHub Pages. Camera access requires <code>https://</code>, which GitHub Pages provides.
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/html5-qrcode" defer></script>
+  <script>
+    let scanner = null;
+    let isRunning = false;
+
+    const startBtn = document.getElementById('startBtn');
+    const stopBtn = document.getElementById('stopBtn');
+    const statusText = document.getElementById('statusText');
+    const statusBox = document.getElementById('statusBox');
+    const resultText = document.getElementById('resultText');
+    const resultMeta = document.getElementById('resultMeta');
+
+    function setStatus(message, type = 'normal') {
+      statusText.textContent = message;
+      statusText.className = type === 'error' ? 'error' : type === 'ok' ? 'ok' : '';
+    }
+
+    function setResult(text, format = '') {
