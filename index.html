@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Barcode Scanner</title>([developer.mozilla.org](https://developer.mozilla.org/en-US/docs/Web/Security/Defenses/Secure_Contexts/features_restricted_to_secure_contexts?utm_source=chatgpt.com))#0b1020;
+  <title>Barcode Scanner</title>
       --panel: #151b2f;
       --text: #eef2ff;
       --muted: #a7b0d6;
@@ -187,3 +187,81 @@
     }
 
     function setResult(text, format = '') {
+      resultText.textContent = text;
+      resultMeta.textContent = format ? `Format: ${format}` : '';
+    }
+
+    async function startScanner() {
+      if (isRunning) return;
+
+      if (!window.isSecureContext) {
+        setStatus('Camera access is blocked because this page is not running in a secure context (HTTPS).', 'error');
+        return;
+      }
+
+      try {
+        startBtn.disabled = true;
+        setStatus('Requesting camera access...');
+
+        scanner = new Html5Qrcode('reader');
+
+        await scanner.start(
+          { facingMode: 'environment' },
+          {
+            fps: 10,
+            qrbox: { width: 280, height: 160 },
+            aspectRatio: 1.7778,
+            rememberLastUsedCamera: true,
+            supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA]
+          },
+          (decodedText, decodedResult) => {
+            const format = decodedResult?.result?.format?.formatName || decodedResult?.result?.format?.format || 'unknown';
+            setResult(decodedText, format);
+            setStatus('Scan successful.', 'ok');
+          },
+          () => {
+            // Ignore per-frame decode errors to keep UI clean.
+          }
+        );
+
+        isRunning = true;
+        stopBtn.disabled = false;
+        setStatus('Scanner is running. Point the camera at a barcode.', 'ok');
+      } catch (error) {
+        console.error(error);
+        setStatus(`Could not start scanner: ${error?.message || error}`, 'error');
+        startBtn.disabled = false;
+      }
+    }
+
+    async function stopScanner() {
+      if (!scanner || !isRunning) return;
+
+      try {
+        await scanner.stop();
+        await scanner.clear();
+        isRunning = false;
+        scanner = null;
+        stopBtn.disabled = true;
+        startBtn.disabled = false;
+        setStatus('Scanner stopped.');
+      } catch (error) {
+        console.error(error);
+        setStatus(`Could not stop scanner cleanly: ${error?.message || error}`, 'error');
+      }
+    }
+
+    startBtn.addEventListener('click', startScanner);
+    stopBtn.addEventListener('click', stopScanner);
+
+    window.addEventListener('beforeunload', async () => {
+      if (scanner && isRunning) {
+        try {
+          await scanner.stop();
+          await scanner.clear();
+        } catch (_) {}
+      }
+    });
+  </script>
+</body>
+</html>
